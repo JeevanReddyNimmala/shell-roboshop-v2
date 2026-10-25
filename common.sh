@@ -85,7 +85,8 @@ restart(){
     validate $? "Restarting $app_name"
 }
 
-total_time(){
+total_time()
+{
     echo "$(timestamp) Script completed in: $SECONDS seconds"
-    echo "$(timestamp) [INFO]   =====Script Completed Execution ====" | tee -a $log_file"
+    echo "$(timestamp) [INFO]   =====Script Completed Execution ====" | tee -a $log_file
 }
