@@ -1,37 +1,12 @@
 #!bin/bash
-user_id=$(id -u)
-log_folder="/var/log/shell_practice"
-log_file="${log_folder}/${0}.log"
-domain_name="jsrgroup.online"
-scripts_dir=$(dirname "$(realpath "$0")")
-R="\e[31m"
-G="\e[32m"
-Y="\e[33m"
-N="\e[0m"
 
-if [ $user_id -ne 0 ] ; then
-    echo "Run this with SUDO access"
-    exit 1
-fi
+app_name=payment
+source ./common.sh
 
-mkdir -p $log_folder
-echo  "script started ececution at $(date +"%F %T")"
+check_root
 
-timestamp(){
- date +"%F %T"
-}
 
-validate (){
-    if [ $1 -ne 0 ] ; then
-    echo  -e "$(timestamp) [ERROR] ${2} ...${R}FAILED${N}" | tee -a $log_file
-    exit 1
-else
-    echo  -e "$(timestamp) [INFO] ${2} .. ${G}SUCCUSS${N}" | tee -a $log_file
-fi
-}
 
- 
-echo "$(timestamp) [INFO]   =====Script Started Execution ====" | tee -a $log_file
 
 dnf module disable nginx -y &>> $log_file
 validate $? "disable nginx"
@@ -65,5 +40,4 @@ systemctl restart nginx &>> $log_file
 validate $? "Start/Restart nginx"
 #dnf install python3.14 python3.14-pip -y &>> $log_file
 
-echo "$(timestamp) Script completed in: $SECONDS seconds"
-echo "$(timestamp) [INFO]   =====Script Completed Execution ====" | tee -a $log_file
+timestamp
