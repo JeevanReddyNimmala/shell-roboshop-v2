@@ -17,5 +17,4 @@ systemctl enable redis &>> $log_file
 systemctl start redis &>> $log_file
 validate $? "Enable and start redis"
 
-
-timestamp()
+total_time

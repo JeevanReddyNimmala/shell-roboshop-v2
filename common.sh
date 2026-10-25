@@ -2,6 +2,7 @@
 user_id=$(id -u)
 log_folder="/var/log/roboshop"
 log_file="${log_folder}/${0}.log"
+scripts_dir=$(dirname "$(realpath "$0")")
 R="\e[31m"
 G="\e[32m"
 Y="\e[33m"
@@ -68,8 +69,8 @@ app_setup(){
 
 systemd_setup(){
 
-    sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/$app_name.service"
-    cp "$scripts_dir/$app_name.service" /etc/systemd/system/$app_name.service
+    sed -i "s/DOMAIN_NAME/$domain_name/g" "$scripts_dir/"$app_name.service""
+    cp "$scripts_dir/"$app_name.service"" /etc/systemd/system/"$app_name.service"
 
     systemctl daemon-reload &>> $log_file
     validate $? "daemon reloaded"
@@ -86,5 +87,5 @@ restart(){
 
 total_time(){
     echo "$(timestamp) Script completed in: $SECONDS seconds"
-    echo "$(timestamp) [INFO]   =====Script Completed Execution ====" | tee -a $log_file
+    echo "$(timestamp) [INFO]   =====Script Completed Execution ====" | tee -a $log_file"
 }
