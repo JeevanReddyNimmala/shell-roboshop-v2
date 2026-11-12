@@ -1,7 +1,5 @@
 #!bin/bash
 
-#!bin/bash
-#!bin/bash
 app_name=shipping
 source ./common.sh
 
